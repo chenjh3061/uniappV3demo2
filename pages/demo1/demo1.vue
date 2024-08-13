@@ -19,11 +19,12 @@
 	<view id="time">
 		{{ localDate }}
 	</view>
+	<view></view>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-	
+
 const localDate = ref(new Date().toLocaleString());
 console.log(localDate) 
 </script>
