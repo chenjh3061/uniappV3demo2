@@ -1,3 +1,6 @@
+<template>
+	<GlobalFooterVue />
+</template>
 <script>
 	export default {
 		onLaunch: function() {
@@ -10,6 +13,7 @@
 			console.log('App Hide')
 		}
 	}
+	import GlobalFooterVue from './pages/components/GlobalFooter.vue'
 </script>
 
 <style>
