@@ -5,14 +5,10 @@
 			<button type="default">跳转到新页面</button>
 		</navigator>
 		<view>
-			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
-				>
+			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 				<swiper-item v-for="(item, index) in topSwiper" :key="index">
 					<view class="swiper-item">{{ item }}</view>
 				</swiper-item>
-<!-- 				<swiper-item>
-					<view class="swiper-item">22222</view>
-				</swiper-item> -->
 			</swiper>
 		</view>
 		<view class="box" hover-class="boxHover">
