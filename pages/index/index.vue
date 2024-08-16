@@ -5,19 +5,19 @@
 			<button type="default">跳转到新页面</button>
 		</navigator>
 		<view>
-			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-				<swiper-item>
-					<view class="swiper-item">11111</view>
+			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
+				>
+				<swiper-item v-for="(item, index) in topSwiper" :key="index">
+					<view class="swiper-item">{{ item }}</view>
 				</swiper-item>
-				<swiper-item>
+<!-- 				<swiper-item>
 					<view class="swiper-item">22222</view>
-				</swiper-item>
+				</swiper-item> -->
 			</swiper>
 		</view>
 		<view class="box" hover-class="boxHover">
 			view布局标签
 			<view class="inner" hover-class="innerHover" hover-stop-propagation>二号标签</view>
-			<datalist></datalist>
 		</view>
 		<view class="text">
 			<text selectable>这里是text文本</text>
@@ -42,7 +42,7 @@
 			<view class="box">scroll子元素</view>
 			<view class="box">scroll子元素</view>
 		</scroll-view>
-		
+
 		<GlobalFooter />
 	</view>
 </template>
@@ -52,6 +52,8 @@
 		onMounted
 	} from 'vue';
 	import GlobalFooter from '../components/GlobalFooter.vue';
+
+	const topSwiper = [11111, 22222, 33333, 44444, 55555];
 
 	onMounted(() => {
 		// 组件加载时执行的逻辑
@@ -63,13 +65,16 @@
 		border: #000 2px;
 		width: 100vw;
 	}
+
 	.swiper-item {
 		border: #000;
 	}
+
 	#headTitle {
 		margin: 0 0 0 40vw;
 		color: #000;
 	}
+
 	.scrollView {
 		width: 80%;
 		height: 220px;
