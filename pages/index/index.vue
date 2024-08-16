@@ -5,12 +5,17 @@
 			<button type="default">跳转到新页面</button>
 		</navigator>
 		<view>
-			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+			<swiper indicator-dots="true" 
+			indicator-active-color="#007aff"
+			:autoplay="true" :interval="3000" :duration="1000">
 				<swiper-item>
 					<view class="swiper-item">11111</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">22222</view>
+				</swiper-item>
+				<swiper-item>
+					<view class="swiper-item">33333</view>
 				</swiper-item>
 			</swiper>
 		</view>

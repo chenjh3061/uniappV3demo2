@@ -1,7 +1,7 @@
 <template>
 	<view>这是demo1页面</view>
 	<navigator animation-type="pop-out" animation-duration="300" open-type="navigateBack">
-		<button>navigator:back</button>
+		<button type="primary">返回主页</button>
 	</navigator>
 	<swiper indicator-dots="true" 
 			indicator-active-color="#007aff"
