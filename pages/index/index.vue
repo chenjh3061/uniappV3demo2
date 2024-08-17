@@ -8,6 +8,7 @@
 			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 				<swiper-item v-for="(item, index) in topSwiper" :key="index">
 					<view class="swiper-item">{{ item }}</view>
+				</swiper-item>
 			</swiper>
 		</view>
 		<view class="box" hover-class="boxHover">
