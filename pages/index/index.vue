@@ -11,33 +11,20 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<view class="box" hover-class="boxHover">
-			view布局标签
-			<view class="inner" hover-class="innerHover" hover-stop-propagation>二号标签</view>
+		<button v-on:click="addNum">
+			<view :style="{background:color}">{{ num }}</view>
+		</button>
+		<view class="daily-recommand">
+			<text selectable>每日推荐</text>
+			<scroll-view scroll-x="true" class="scrollView">
+				<view class="box" v-for="(item, index) in dailyRecommand" :kry="index">
+					{{ item }}
+				</view>
+			</scroll-view>
 		</view>
-		<view class="text">
-			<text selectable>这里是text文本</text>
+		<view class="selected">
+			<view>专题精选</view>
 		</view>
-		<scroll-view scroll-x="true" class="scrollView">
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-			<view class="box">scroll子元素</view>
-		</scroll-view>
 
 		<GlobalFooter />
 	</view>
@@ -45,14 +32,32 @@
 <script setup>
 	import {
 		ref,
-		onMounted
+		onMounted,
+		watchEffect
 	} from 'vue';
 	import GlobalFooter from '../components/GlobalFooter.vue';
 
 	const topSwiper = [11111, 22222, 33333, 44444, 55555];
 
+	const num = ref(0);
+	const color = ref("#fc359a");
+	const addNum = () => {
+		num.value++;
+		color.value = "#" + String(Math.random()).substring(3, 9)
+	};
+
+	setInterval(() => {
+		if (num.value > 0) {
+			num.value--;
+			color.value = "#" + String(Math.random()).substring(3, 9)
+		}
+	}, 1000);
+
+	const dailyRecommand = ["图片1", "图片2", "图片3", "图片4", "图片5", "图片6"]
+
 	onMounted(() => {
 		// 组件加载时执行的逻辑
+
 	});
 </script>
 
@@ -83,27 +88,7 @@
 			background-color: aqua;
 			display: inline-block;
 			margin: 5px;
+			border-radius: 5;
 		}
-	}
-
-	.box {
-		width: 200px;
-		height: 200px;
-		background: #ccc;
-	}
-
-	.boxHover {
-		background: orange;
-		width: 300px;
-	}
-
-	.inner {
-		width: 150px;
-		height: 150px;
-		background: green;
-	}
-
-	.innerHover {
-		background: greenyellow;
 	}
 </style>
