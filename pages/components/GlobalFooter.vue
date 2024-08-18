@@ -1,19 +1,19 @@
 <template>
 	<view class="foot-container">
 		<view id="index">
-			<navigator url="" hover-class="navigator-hover">
+			<navigator url="../index/index" hover-class="navigator-hover">
 				<view id="index-logo"></view>
 				<view>首页</view>
 			</navigator>
 		</view>
 		<view id="posts">
-			<navigator url="" hover-class="navigator-hover">
+			<navigator url="../index/postPage" hover-class="navigator-hover">
 				<view id="posts-logo"></view>
 				<view>文字</view>
 			</navigator>
 		</view>
 		<view id="mall">
-			<navigator url="" hover-class="navigator-hover">
+			<navigator url="../demo1/demo1" hover-class="navigator-hover">
 				<view id="mall-logo"></view>
 				<view>商城</view>
 			</navigator>

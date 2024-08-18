@@ -1,11 +1,8 @@
 <template>
 	<view>
 		<view id="headTitle">音悦小小屋</view>
-		<navigator url="../demo1/demo1" hover-class="navigator-hover">
-			<button type="default">跳转到新页面</button>
-		</navigator>
 		<view>
-			<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+			<swiper :indicator-dots="true" circular="true" :autoplay="true" :interval="3000" :duration="1000">
 				<swiper-item v-for="(item, index) in topSwiper" :key="index">
 					<view class="swiper-item">{{ item }}</view>
 				</swiper-item>
