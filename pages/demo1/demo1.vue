@@ -1,5 +1,5 @@
 <template>
-	<view>这是demo1页面</view>
+	<view>在线商城</view>
 	<navigator animation-type="pop-out" animation-duration="300" open-type="navigateBack">
 		<button type="primary">返回主页</button>
 	</navigator>
