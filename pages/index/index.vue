@@ -17,7 +17,7 @@
 		<view class="daily-recommand">
 			<text selectable>每日推荐</text>
 			<scroll-view scroll-x="true" class="scrollView">
-				<view class="box" v-for="(item, index) in dailyRecommand" :kry="index">
+				<view class="box" v-for="(item, index) in dailyRecommand" :key="index">
 					{{ item }}
 				</view>
 			</scroll-view>
@@ -77,10 +77,11 @@
 	}
 
 	.scrollView {
-		width: 80%;
+		width: 95%;
 		height: 220px;
 		border: 1px solid #000;
 		white-space: nowrap;
+		margin: 5px 2% 5px 2% ;
 
 		.box {
 			width: 100px;
