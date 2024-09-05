@@ -5,6 +5,26 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="test.css">
     <title>test</title>
+    <script>
+        window.onload = function () {
+            var swiper = new Swiper('.swiper', {
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false,
+                },
+            });
+            
+        };
+
+    </script>
 </head>
 
 <div>
@@ -22,8 +42,11 @@
                 <img src="../static/furniture.jpeg" alt="">
             </div>
             <div class="button-area">
-                <button>新品上市</button>
-                <button>二手商城</button>
+                <button id="newGoods">新品上市</button>
+                <button id="secondGoods">二手商城</button>
+                <script>document.getElementById("newGoods").onclick = function () {
+                    alert('按钮被点击了');
+                };</script>
             </div>
             <div class="goods-area">
                 <div class="goods-title">热销单品</div>
