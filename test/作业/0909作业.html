@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>\
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 200.6px;
+            padding: 20px;
+            border: 1px solid rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1>我是box里面的h1标签</h1>
+        <p>我是一个p标签</p>
+
+        <ul>
+            <li><span>hello 1</span></li>
+            <li><span>hello 2</span></li>
+            <li><span>hello 3</span></li>
+            <li><span>hello 4</span></li>
+        </ul>
+
+        <ul>
+            <li class="active" onclick="clickHandler(0)">1</li>
+            <li onclick="clickHandler(1)">2</li>
+            <li onclick="clickHandler(2)">3</li>
+            <li onclick="clickHandler(3)">4</li>
+            <li onclick="clickHandler(4)">5</li>
+        </ul>
+    </div>
+    <script>
+        var box = document.querySelector('#box')
+        // 获取元素尺寸
+        // 内容+padding+border   会四舍五入  取整
+        console.log(box.offsetWidth, '获取元素宽')  // 159
+        console.log(box.offsetHeight, '获取元素高')  // 
+        console.log('======================')
+        // 内容+padding  会四舍五入  取整
+        console.log(box.clientWidth, '获取元素宽') // 140
+        console.log(box.clientHeight, '获取元素高')
+
+        console.log('=============')
+        // 内容+padding+border
+        console.log(box.getBoundingClientRect().width)
+
+        /*
+        操作dom对象
+        == 增删改查 
+        == 创建一个节点
+        == 向页面中增加一个节点
+        == 删除页面中某一个节点
+        == 修改页面中某一个节点
+        == 获取页面中某一个节点
+        == 克隆页面中某一个节点
+        */
+
+        // 创建一个节点
+        // 1 createElement() 用于创建一个元素节点
+        var oDiv = document.createElement('div')
+        oDiv.innerHTML = '我是创建的div标签'
+        console.log(oDiv)
+        // 2 createTextNode() 用于创建一个文本节点
+        var oText = document.createTextNode('hello world')
+        console.log(oText)
+
+        // 向页面中加入一个节点
+        // 1 appendChild() 是向一个元素的结尾插入一个子节点
+        // 父节点.appendChild(要插入的子节点)
+        var box1 = document.querySelector('#box')
+        box1.appendChild(oDiv)
+
+        // 2 insertBefore() 向某一个元素前插入一个子节点
+        // 父节点.insertBefore(要插入的节点，插入在哪一个节点的前面)
+        // box1.insertBefore(oText, oDiv)
+
+        // 父节点.insertBefore(要插入的节点，null)
+        box1.insertBefore(oText, null)
+        // === appendChild() 效果一样
+
+        /*删除节点*/
+        // 获取div
+        var box = document.querySelector('#box')
+        // 获取p
+        var p1 = document.getElementsByTagName('p')[0]
+
+        // 1 删除页面中的节点
+        // removeChild() 移除节点下的某一个节点
+
+        // 父节点.removeChild(元素)
+        // box.removeChild(p1)
+
+        // 2 删除自己
+        // 自己.remove()
+        // p1.remove()
+
+        // 修改页面中的节点
+        // replaceChild() 将页面中的某个节点替换掉
+        // 语法 父节点.replaceChild(新节点，旧节点)
+
+        var newNode = document.createElement('h1')
+        // 设置新节点
+        newNode.innerHTML = '新节点'
+        // 用新的h1替换div里面的p标签
+        box.replaceChild(newNode,p1)
+
+
+
+        // 前面学了 queryselector getElements...
+        // 现在我们可以根据关系来获取节点
+
+        var ul = document.querySelector('ul')
+        console.log(ul)
+        // 1 获取一个元素的所有子节点集合
+        // 语法 元素节点.children
+        console.log(ul.children)
+
+        // 2 获取一个元素的父元素节点
+        // 语法 元素节点.parentElement
+        // 语法 元素节点.parentNode
+        console.log(ul.parentElement)
+        console.log(ul.parentNode)
+
+        // 3 页面结构中唯一的标签有特殊含义的快捷获取方式
+        console.log(document.body, 'body')
+        console.log(document.head)
+        document.title = '派大星'
+        console.log(document.title)  // 获取的是title里面的内容
+        console.log(document.documentElement) // 获取html标签
+        console.log(document.doctype)
+
+        /*
+        // 克隆节点
+        语法 要克隆的节点.clone(是否克隆内容)
+        */
+        var box = document.querySelector('#box')
+        var p = box.children[0]
+        console.log(p)
+        // 克隆一个和p标签一模一样的节点
+        var newP = p.cloneNode(true)
+        console.log(newP)
+        // 把克隆好的节点插入div的末尾
+        box.appendChild(newP)
+
+        // 排他思想需求
+        // 每一个li都可以点击
+        // 点击以后 被点击的li高亮
+        // 其他的li 都不高亮
+
+        var liS = document.querySelectorAll('li')
+        console.log(liS)
+        function clickHandler(index) {
+            console.log('第' + index)
+            for (var i = 0; i < liS.length; i++) {
+                liS[i].className = ''
+            }
+            liS[index].className = 'active'
+        }
+        
+
+        //事件处理
+        // 事件（event），可以详细分解为触发谁的事件、
+        // 触发什么事件、触发事件之后做什么。
+        // 按照这样的思路去写事件处理。
+        // 常见的事件包括onclick/onload/onscroll/onresize等。
+        //最基本的点击事件
+        var oDiv = document.querySelector('div')
+            oDiv.onclick = function () {
+                console.log('你点击了div')
+        }
+
+        /* 
+        事件的绑定方式
+        == 我们现在绑定事件都是onxxxx的方式，这个叫dom0级事件
+        == 这个方法不是很好，只能给一个元素注册一个同类型事件
+        == 一旦写了第二个事件，那么第一个就会被覆盖了
+
+        == 我们还有一种 dom2级的事件监听方式去给元素绑定事件
+        == 使用 addEventListener 的方式添加
+        == 这个方法不兼容 在ie浏览器里面使用attachEvent
+
+        == 语法 元素.addEventListener('事件类型',事件处理函数[,冒泡还是捕获])
+        */
+        var oDiv = document.querySelector('div')
+        // oDiv.onclick = function () {
+        //     console.log('我是第一个点击事件')
+        //     console.log('我是第二个点击事件')
+        // }
+
+        // oDiv.onclick = function () {
+        //     console.log('我是第二个点击事件')
+        // }
+
+        // dom2级事件监听
+        oDiv.addEventListener('click', function () {
+            console.log('我是第一个事件')
+        })
+        oDiv.addEventListener('click', function () {
+            console.log('我是第二个事件')
+        })
+
+         /*
+        this 
+        == 在函数调用的时候，才能知道this具体的意思
+        == 同一个函数 在不同的时候调用，this的意思不一定相同
+        */
+
+        // 普通函数  this    window
+        // function clickHandler() {
+        //     console.log(this)
+        // }
+        // clickHandler()
+
+        // // 作为事件处理函数  this   事件源
+        // var li1 = document.querySelector('li')
+        // // console.log(li1)
+        // li1.onclick = function () {
+        //     console.log(this)
+        // }
+
+        // 点击 li 被点击的高亮
+        var liS = document.querySelectorAll('li')
+        for (var i = 0; i < liS.length; i++) {
+            liS[i].onclick = function () {
+                console.log(this)
+                // this 就是被点击的事件源li
+                for (var j = 0; j < liS.length; j++) {
+                    liS[j].className = ''
+                }
+                this.className = 'active'
+            }
+        }
+
+        /*
+        事件的解绑方式
+        == 语法 dom2级  元素.removeEventListener('事件类型',要解绑的事件处理函数[,冒泡还是捕获])
+
+        == dom0级 同类事件就覆盖
+        == 元素.onxxxxx = null
+
+        事件派发
+        == 抢票软件 不用我自己动手点击 他可以通过代码触发点击事件
+        == 语法 元素.dispatchEvent(事件对象)
+        */
+
+        var oDiv = document.querySelector('div')
+
+        function clickHandler() {
+            console.log('第一个事件')
+        }
+        function clickHandler2() {
+            console.log('第二个事件')
+        }
+
+        // dom2 事件绑定
+        oDiv.addEventListener('click', clickHandler)
+        oDiv.addEventListener('click', clickHandler2)
+
+        oDiv.removeEventListener('click', clickHandler)
+
+
+        // 事件派发
+        // 创建一个事件对象
+        var event = new Event('click')
+        console.log(event)
+        // 每隔1s 给指定的事件源派发点击事件
+        oDiv.dispatchEvent(event)
+
+        setInterval(function () {
+            oDiv.dispatchEvent(event)
+        }, 1000)
+
+        /* 
+        事件对象
+        1 什么是事件对象
+        == 生活中的例子 我们经常打10086客服电话
+        == 客服接到电话后，会把客户名字，接待时间，客户描述，客户满意度，号码记下来
+        == 每一次电话 都会生成一条客服记录
+        == 每次电话的客服记录都是不同
+
+        == 每次事件触发以后 我们也会有一个对象记录本次事件的一些描述信息
+        == 比如 触发一个点击事件这个对象就会记录 事件类型 点击的位置 点击的元素...
+
+        2 获取事件处理函数中的事件对象
+        == 在事件处理函数中有一个event对象 记录的就是本次事件的一些描述信息
+        事件处理函数的第一个形参代表的就是事件对象
+
+        */
+        var oDiv = document.querySelector('div')
+
+        oDiv.onclick = function (e) {
+            e = e || window.event
+
+
+            console.log(window.event)
+            console.log(e)
+        }
+        /* 
+        点击事件光标坐标点的获取
+        == 事件对象中有点击的时候鼠标的坐标
+
+        1 相对于你点击的元素来说
+        语法 事件对象.offsetX  
+        == 是点击的位置以被点击元素为参考坐标系
+
+        2 相对于浏览器的可视窗口来说
+        语法 事件对象.clientX 
+        == 是点击的位置以浏览器窗口可视区域为参考坐标系
+
+        3 相对于页面来说
+        语法 事件对象.pageX 
+        == 是点击的位置以页面为参考坐标系
+        */
+
+        // var oDiv = document.querySelector('div')
+        // oDiv.onclick = function (e) {
+        //     console.log(e.offsetX)
+        //     console.log(e.offsetY)
+        //     oDiv.innerHTML = '相对于你点击的元素来说：横坐标x:' + e.offsetX + ';纵坐标y:' + e.offsetY
+        // }
+
+        // var oDiv = document.querySelector('div')
+        // oDiv.onclick = function (e) {
+        //     console.log(e.clientX)
+        //     console.log(e.clientY)
+        //     oDiv.innerHTML = '相对于浏览器的可视窗口来说：横坐标x:' + e.clientX + ';纵坐标y:' + e.clientY
+        // }
+
+        var oDiv = document.querySelector('div')
+        oDiv.onclick = function (e) {
+            console.log(e.pageX)
+            console.log(e.pageY)
+            oDiv.innerHTML = '相对于页面来说：横坐标x:' + e.pageX + ';纵坐标y:' + e.pageY
+        }
+
+        // 需求 点击father 在father中显示光标在father中的坐标
+        var fDiv = document.querySelector('.father')
+        var h3 = document.querySelector('h3')
+        // 给fDiv绑定点击事件
+        fDiv.onclick = function (e) {
+            // 点击盒子的时候 出现了问题
+            // var x = e.offsetX
+            // var y = e.offsetY
+
+
+            // 盒子相对于页面
+            x = e.pageX - fDiv.offsetLeft
+            y = e.pageY - fDiv.offsetTop
+            h3.innerHTML = 'x:' + x + 'y:' + y
+            
+        }
+
+
+        var oDiv = document.querySelector('div')
+
+        // mousedown 当鼠标按下的时候触发
+        // mouseup 当鼠标松开的时候触发
+        // mousemove 当鼠标移动的时候触发
+        oDiv.onmousedown = function (e) {
+            console.log(e.button)
+            var type = e.button
+            switch (type) {
+                case 0: console.log('你按下了鼠标左键'); break
+                case 1: console.log('你按下了鼠标滚轮'); break
+                case 2: console.log('你按下了鼠标右键'); break
+            }
+        }
+
+        oDiv.addEventListener('mousemove', function (e) {
+            oDiv.innerHTML = 'x:' + e.offsetX
+        })
+
+
+        /*
+        常见的事件类型
+
+        1 浏览器事件
+        == load 页面全部加载完成
+        == resize 页面大小改变
+        == scroll 页面滚动条滚动
+        ==....
+
+        2 鼠标事件
+        == click 点击事件
+        == dbclick 双击事件
+        == contextmenu 鼠标右键快捷菜单
+        == mousedown 鼠标按下
+        == mouseup
+        == mousemove
+        == mouseover 鼠标移入  当鼠标移入元素或子元素 都会触发
+        == mouseout 鼠标移出
+        == mouseenter 鼠标移入 当鼠标移入元素触发
+        == mouseeleave 鼠标移入
+
+        3 键盘事件
+        == keydown 当用户按下键盘上的任意按键时触发，如果按住不放 会重复触发
+        == keyup 当用户释放键盘上的任意按键时触发
+        == keypress 当键盘按下任意字符键时触发 如果按住不放 会重复触发
+
+        4 表单事件
+        == chang 表单内容改变的时候触发
+        == input 表单元素内容输入事件
+        == submit 表单提交事件
+        == blur 表单失去焦点事件
+        == focus 表单获取焦点
+        ==...
+        
+        */
+
+
+        var father = document.getElementsByClassName('father')[0]
+        var son = document.getElementsByClassName('son')[0]
+        // 获取元素偏移量
+        // offsetLeft 和 offsetTop  --- 只读的 ---
+        // 获取的时候要分两种情况
+        // 没有定位的情况 
+        // 获取到的是元素边框到页面内测的距离
+        console.log(father.offsetLeft)
+        // 有定位的情况 元素边框到父元素边框内部的距离
+        console.log(son.offsetLeft)
+    </script>
+</body>
+</html>

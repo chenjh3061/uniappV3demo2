@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        js的作用域 与 作用域链
+        == 就是一个变量可以生效的范围
+        == 变量 不是在所有地方都可以使用的这个变量生效的范围 就是js的作用域
+        
+        全局作用域
+        当对文件顶部代码完成编译后，会执行全局上下文，同时形成全局作用域
+        == 全局作用域是最大的作用域
+        == 在全局作用域定义的变量可以在任何地方使用
+        == 页面打开的时候，浏览器会自动给我们生成一个全局作用域window
+        == 这个作用域会一直存在，直到浏览器关闭或销毁
+
+        局部作用域
+        == 局部作用域就是在全局作用域下面又开辟出来一个相对小一些的作用域
+        == 在局部作用域中定义的变量只能在这个局部作用域起作用
+        == 在js中只有函数可以生成一个局部作用域
+        == 每一个函数都是一个局部作用域
+
+        块级作用域：对于块级作用域，会在代码执行到该代码的时候生成
+
+        作用域链
+        == 函数被创建的作用域中饭可使用的数据的集合
+        各个作用域的嵌套关系组成一条作用域链
+        作用域链主要进行 标识符（变量名和函数名）的查询，标识符解析就是沿着作用域链一级一级的搜索标识符的过程，
+        而作用域链就是保住对变量和函数的有序访问
+        （1）如果自身作用域中声明了该变量，则js不调用作用域链
+        （2）如果自身作用域中未声明变量，则需要使用作用域链进行查找
+        */
+
+        var num = 100
+        var num2 = 200
+        var num3 = 3000
+        function fn() {
+            var num3 = 300
+            function fn2() {
+                console.log(num3, '3')
+                console.log(num2, '2')
+            }
+            fn2()
+            console.log(num3)
+            console.log(num2)
+
+        }
+        fn()
+
+        function fn2() {
+            var num3 = 30
+            console.log(num3)
+            console.log(num2)
+
+        }
+        fn()
+        // console.log(num3)
+
+        /*
+        预解析的介绍
+        js引擎运行js分为两步
+        1 预解析
+        2 代码执行
+        预解析 js引擎会把js里面所有的var function提升到当前作用域的最前面
+        代码执行 按照代码书写的顺序从上往下执行
+
+        JavaScript是 轻量级 解释型 弱类型 的 脚本语言
+        所谓的 预解析/预解释/预编译 是JavaScript程序的一种执行方式
+        */
+
+        // 1问
+        // console.log(num)
+        // num = 1
+
+        // 2问
+        // var num = 10
+        // var num = 11
+        // console.log(num)
+
+        // var num
+        // var num
+
+        // 3问  函数的状态提升
+        // fn()
+        // function fn() {
+        //     console.log(1 + 1)
+        // }
+
+        // 4问题
+        // fun()
+        // var fun = function () {
+        //     console.log(1 + 1)
+        // }
+
+        // 5问 
+        // 多个同名函数声明，由最后面得函数声明来代替前面的
+        // fx()
+        // function fx() {
+        //     console.log('fx')
+        // }
+        // function fx() {
+        //     console.log('fx fx')
+        // }
+
+        // 6问
+        // 函数声明和变量声明使用同一个变量名称时
+        // 函数优先级高于变量
+        // console.log(fx)
+        // function fx() {
+        //     console.log('fx')
+        // }
+        // var fx = 'ffffxxxx'
+
+
+        // 面试题
+
+        var a = 100
+        function fn() {
+            console.log(a)
+            var a = 200
+            console.log(a)
+        }
+        fn()
+        console.log(a)
+        var a
+        console.log(a)
+        var a = 300
+        console.log(a)
+
+        // 
+        var a
+        function fn() {
+            console.log(a)  // undefined
+            var a = 200
+            console.log(a) // 200
+        }
+        fn()
+        a = 100
+        console.log(a) // 100
+        console.log(a)//100
+        a = 300
+        console.log(a)//300
+
+
+        //JSON格式
+        /*
+        JSON
+        == 是一种文件的格式,在各种语言中都识别
+        == 当需要传递数据的时候可以把数据转成json格式再进行传递
+        == 格式类型类似数组和对象，但是字符串
+        == 凡是字符串都是用双引号
+        == 对象和数组里面的值可以是布尔 数值 字符串 null undefined  函数 数组 对象
+        
+        前端要把数据给后端
+        == 要把js里面的对象格式和数组格式转成json字符串格式
+        == 语法 JSON.stringfy(js的数据)
+
+       前端接受后端给我们数据
+        == 要把json字符串转成js的格式
+        == 语法 JSON.parse(json字符串)
+        */
+        //    json格式的字符串
+        var jsonStr = '["lucy","lily","poly"]'
+        var jsonStr2 = '{"name":"luvy","age":12,"vip":null}'
+
+        var obj = { name: '海绵包包' }
+        // js的对象转成json字符串
+        var objStr = JSON.stringify(obj)
+
+        console.log(obj)
+        console.log(objStr)
+
+        var arr = ['1', '2', '3', ' 4', '5']
+        var arrStr = JSON.stringify(arr)
+        console.log(arr)
+        console.log(arrStr)
+
+
+        // 把json字符串转成js对象或数组
+        var resultArr = JSON.parse(jsonStr)
+        console.log(resultArr)
+
+        console.log(JSON.parse(jsonStr2))
+
+
+        /*
+        this
+        == this 中文翻译 ‘这里’ 在编程中叫‘上下文对象’ 
+        == this在不同的函数中有不同的含义
+        == 函数定义的时候无法确定this的指向内容
+        == 只有在函数调用的时候才能知道本地调用的this是什么
+         */
+
+        // function fn(a, b) {
+        //     console.log(a, b)
+        //     console.log(this)
+        // }
+
+        // 1 普通调用函数  this指向的是window
+        // fn('我', '普通函数')
+
+        // 2 作为定时器的回调函数  this指向的是window
+        // setTimeout(fn, 1000, '我', '定时器的回调函数')
+
+        // 3 作为事件处理函数 this指向的是事件源
+        // document.addEventListener('click', fn)
+
+        // 4 作为对象的属性值  this指向的是调用这个方法的对象本体
+        // var obj = {
+        //     name: 'lucy',
+        //     age: 12,
+        //     arr: [1, 2, 3, 4],
+        //     sayHello: function () {
+        //         console.log('hello')
+        //     },
+        //     sayThis: fn
+        // }
+        // obj.sayThis(1, 2)
+
+        // 5 自调用函数
+        (function () {
+            console.log('我', '自执行函数')
+            console.log(this)
+        })()
+
+         /*
+        call,apply,bind 改变this的指向
+        == this在调用的时候确定
+        1 call
+        == 我们在函数调用的时候，来指定本次调用中this的指向
+        == 语法 函数名.call(指定this的指向,实参1,实参2...)
+        == 如果指定的this指向为null,不改变this
+
+        2 apply
+        == 我们在函数调用的时候，来指定本次调用中this的指向
+        == 语法 函数名.apply(指定this的指向,[实参1,实参2...])
+        == 如果指定的this指向为null,不改变this
+
+        3 bind
+        == 语法 var 新函数 = 旧函数.bind(新函数的this)
+        == 不会调用旧函数，只是为了生成一个新函数
+        == 新函数里面的this 是已经改变过得
+        == 不管怎么调用 this就是你要改变的
+        */
+
+        function fn(a, b) {
+            console.log(a, b)
+            console.log(this)
+        }
+        fn('我', '普通调用函数')
+
+
+        // fn.call({ name: 'lucy' }, '我', '普通调用函数')
+        // fn.call(null, '我', '普通调用函数')
+
+        // fn.apply({ name: 'lucy' }, ['我', '普通调用函数'])
+        // fn.apply(null, ['我', '普通调用函数'])
+
+        var newFn = fn.bind({ a: 1, b: 2, c: 3 })
+        fn('我', '普通调用函数')
+        newFn('我', '普通调用函数')
+
+        /*
+        let和const
+        == 我们以前使用var关键字声明变量
+        == 在es6的时候新增了两个声明变量的关键字let和const
+        == 不过和var 有一些区别
+        */
+
+        // 1 let const 不能重复声明
+        // var 可以重复声明
+        // var a = 100
+        // var a = 200
+
+        // let 不可以重复声明,会报错
+        // let a = 100
+        // let a = 200
+
+        // const 不可以重复声明,会报错
+        // const a = 100
+        // const a = 200
+
+        // 2 let 和cosnt声明的变量没有 预解析
+
+        // console.log(a)
+        // var a = 100
+
+        // console.log(a)
+        // let a = 100
+
+        // console.log(a)
+        // const a = 100
+
+
+        // let a = 10
+
+        // {
+        //     // 这里会产生TDZ
+        //     console.log(a)
+        //     let name = a // a存到了临时性死区中
+
+        //     let a = 20
+        // }
+
+
+        // 3 let和const 声明的变量被所在的代码块限制作用范围 块级作用域
+        // if (true) {
+        //     var num = 100
+        // }
+        // console.log(num)
+
+        // if (true) {
+        //     let num = 100
+        //     console.log(num)
+        // }
+        // console.log(num)
+
+        // if (true) {
+        //     const num = 100
+        //     console.log(num)
+        // }
+        // console.log(num)
+
+        // 4 let声明的变量可以不赋值，const声明的时候必须赋值
+        // let a
+        // var b
+        // const c
+
+
+        // 5 let声明的变量可以重复赋值， const声明以后不能赋值了
+        // let a = 100
+        // a = 200
+        // console.log(a)
+
+        // const HAIMIANBAOBAO = 100
+        // a = 200
+        // console.log(HAIMIANBAOBAO)
+
+        // 基于上面的情况 const定义的变量不能重复赋值，所以也把const定义的变量叫做定量，常量
+
+
+        /*
+        箭头函数
+        == 是es6语法中针对函数表达式的一种简写
+        == 语法 var fn = (形参1，形参2..)=>{要执行的代码}
+        == 原来函数怎么调用 现在也怎么调用 函数名()
+
+        箭头函数的特殊性
+        1 只能简写赋值式函数
+        2 如果只有一个形参，可以省略包裹形参的()
+        3 如果函数体里面只有return 可以省略{} 
+        4 箭头函数里面没有this 他的this是所处环境的this
+        5 箭头函数没有自己的arguments
+        */
+        // 声明式
+        function fn() {
+            console.log('声明式')
+        }
+        fn()
+        // 赋值式
+        var func = function (a, b) {
+            console.log('赋值式')
+        }
+        func()
+
+        let funct = (a, b) => {
+            console.log(a, b, '赋值式')
+        }
+        funct(5, 6)
+
+        var obj = {
+            name: 'lucy',
+            sayHello: (a, b) => { console.log(a, b) }
+        }
+        obj.sayHello(2, 3)
+
+        // var func = (a) => { return a - 1 }
+        // 当箭头函数的形参只有一个的时候 箭头左边的小括号可以省略
+        // var func = a => { return a - 1 }
+        // console.log(func(4))
+        // 当箭头函数的函数体只有return  箭头右边的大括号可以省略
+        var func = a => 1
+        console.log(func(4))
+
+
+        // oDiv.onclick = () => {
+        //     console.log('海绵波波')
+        // }
+
+        // function fn1() {
+        //     console.log(arguments)
+        // }
+
+        // var fn1 = () => {
+        //     console.log('aaaaa')
+        //     console.log(arguments)
+        // }
+        // fn1(1, 2, 3, 4)
+
+
+        var oDiv = document.querySelector('div')
+        // oDiv.onclick = function () {
+        //     console.log(this)
+        // }
+
+        // 箭头函数没有自己的this 是所在环境的上一级的this
+        console.log(this)
+        oDiv.onclick = () => {
+            console.log(this)
+        }
+
+
+         /*
+        函数参数的默认值
+        == 在es6语法中 可以给形参一个默认值
+        == 语法 function fn(形参1=默认值,形参2 = 默认值){}
+        ==  var fn = (形参1=默认值,形参2 = 默认值)=>{}
+        */
+        function fn(a = 1, b = 2, c = 3) {
+            console.log(a, b, c, '普通函数')
+        }
+        fn(8, 9)
+
+        var fun = (a = 55) => {
+            console.log(a, '箭头函数')
+        }
+        fun()
+
+
+        /*
+        解构赋值
+        == 就是快捷的从对象或数组中取出成员的一个语法
+
+        解构对象
+        == 快速从对象中取出成员
+        == {} 是专门用来解构对象使用的
+
+        解构数组
+        == 快速从数组中取出成员
+        == [] 是专门用来解构数组使用的
+        */
+        var obj = {
+            username: 'lucy',
+            password: 123456,
+            age: 12,
+            love: 'book'
+        }
+
+        console.log(obj.username)
+
+        // 解构赋值
+        var { username, password, age, love } = obj
+        // var username = obj.username
+        // var password = obj.password
+        // var age = obj.age
+        // var love = obj.love
+
+        console.log(love)
+
+
+        var arr = ['hello', 'world', '1', 2, 3, 4]
+        console.log(arr[3])
+        var [a, b, c] = arr
+
+        var q = [a, b, c]
+        console.log(q)
+
+        var arr = [1, 2, [3, 4, [5, [6]]]]
+        var [a, b, [c, d, [e, [f]]]] = arr
+        console.log(a, b, c, d, e, f)
+        console.log(f)
+
+        var w = [a, b, c, d, e, f]
+        console.log(w)
+
+        var n = 100
+        var m = 200
+        var [n, m] = [m, n]
+        console.log(n, m)
+
+        var info = {
+            username: '张三',
+            love: { boyFriends: '李四', boyFriends2: '王五' }
+        }
+
+        var { username, love } = info
+        console.log(love)
+
+        var { username, love: { boyFriends2 } } = info
+
+        console.log(boyFriends2)
+
+
+
+         /* 
+        模板字符串
+        == es6语法中表示字符串的新增的语法
+        == 以前的字符串'' ""
+        == 现在有了新的模板字符串 ``(反引号)
+        == 1 反引号可以换行书写
+        == 2 反引号可以直接进行变量拼接
+        */
+
+        //    我用字符串写代码赋值 不能换行
+        var box = document.querySelector('#box')
+        box.innerHTML = `<li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li>`
+
+        var age = 19
+        var name = 'lucy'
+        console.log('我的名字是' + name + '我的年龄是' + age + '我明年' + (age + 1) + '岁了')
+        console.log(`我的名字是${name},我的年龄是${age},我明年${age + 1}岁了`)
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 10000px;
+        }
+
+        .outer {
+            width: 400px;
+            height: 400px;
+            background-color: brown;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .middle {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            background-color: pink;
+        }
+
+        .inner {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            background-color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var outer = document.querySelector('.outer')
+        var inner = document.querySelector('.inner')
+        var middle = document.querySelector('.middle')
+
+        outer.addEventListener("click", function(){
+            console.log("outer");
+        });
+        inner.addEventListener("click", function(){
+            console.log("inner");
+        });
+        middle.addEventListener("click", function(){
+            console.log("middle");
+        });
+    </script>
+</body>
+</html>
